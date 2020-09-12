@@ -25,20 +25,27 @@ bool test (const int arr[][SIZE])
 
 void write (const int arr[][SIZE],ofstream &fout)
 {
-	do
+	try
 	{
 		fout.open("file.txt",ofstream::app);
-	} while (!fout.is_open());
-	fout << arr[0][0]<<"\t"<<arr[0][1]<<"\t"<<arr[0][2]<<"\n";
-	fout << arr[1][0]<<"\t"<<arr[1][1]<<"\t"<<arr[1][2]<<"\n";
-	fout << arr[2][0]<<"\t"<<arr[2][1]<<"\t"<<arr[2][2]<<"\n\n";
+		
+		fout << arr[0][0]<<"\t"<<arr[0][1]<<"\t"<<arr[0][2]<<"\n";
+		fout << arr[1][0]<<"\t"<<arr[1][1]<<"\t"<<arr[1][2]<<"\n";
+		fout << arr[2][0]<<"\t"<<arr[2][1]<<"\t"<<arr[2][2]<<"\n\n";
+		fout.close();
+	}
+	catch(const ofstream::failure& e)
+	{
+		std::cerr << e.what() << '\n';
+	}
+	
 	cout << arr[0][0]<<"\t"<<arr[0][1]<<"\t"<<arr[0][2]<<"\n";
 	cout << arr[1][0]<<"\t"<<arr[1][1]<<"\t"<<arr[1][2]<<"\n";
 	cout << arr[2][0]<<"\t"<<arr[2][1]<<"\t"<<arr[2][2]<<"\n\n";
-	fout.close();
 }
 
 int main() {
+	fout.exceptions(ofstream::badbit|ofstream::failbit);
 	while (arr[SIZE][SIZE]<MAX)
 	{
 
